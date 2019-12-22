@@ -121,7 +121,7 @@ vectorize.o \
 zero.o
 
 eigenmath : $(objects)
-	gcc -o eigenmath $(objects) -lm
+	gcc -o eigenmath $(objects) -lm `pkg-config --cflags --libs libedit`
 
 $(objects) : defs.h defs1.h prototypes.h
 

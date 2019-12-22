@@ -1,9 +1,11 @@
 #include "defs.h"
+#include <editline/readline.h>
+
 
 int
 main(int argc, char *argv[])
 {
-	static char buf[1000];
+	char *line;
 
 	clear();
 
@@ -11,9 +13,12 @@ main(int argc, char *argv[])
 		run_script(argv[1]);
 
 	for (;;) {
-		printf("? ");
-		fgets(buf, sizeof buf, stdin);
-		run(buf);
+		line = readline("? ");
+		if (!line)
+			break;
+		add_history(line);
+		run(line);
+		free((void*)line);
 	}
 
 	return 0;
